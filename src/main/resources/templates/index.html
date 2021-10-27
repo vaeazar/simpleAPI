@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>환율계산기</title>
+  <script src="change.js"></script>
+</head>
+<body>
+  <h1>환율 계산</h1>
+  <ui>
+    <li>
+      송금국가: 미국(USD)
+    </li>
+    <li>
+      수취국가:
+      <select id="receipt-country" th:onchange="countryChange()">
+        <option value="KRW">한국(KRW)</option>
+        <option value="JPY">일본(JPY)</option>
+        <option value="PHP">필리핀(PHP)</option>
+      </select>
+    </li>
+    <li>
+      환율: <span id="exchange-rate" th:text="${#numbers.formatDecimal(initExchange,3,'COMMA',2,'POINT')} + ' KRW/USD'"></span>
+    </li>
+    <li>
+      송금액: <input id="usd-count" type="number"> USD
+    </li>
+    <button th:onclick="finalPrice()">
+      submit
+    </button>
+  </ui>
+  <br>
+  <div id="receipt-complete" style="display: none;">
+    수취금액은 <span id="final-price">000000</span>입니다.
+  </div>
+</body>
+</html>
