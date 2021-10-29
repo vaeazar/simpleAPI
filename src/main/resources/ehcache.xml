@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
+
+  <!-- Persistent cache directory -->
+  <diskStore path="java.io.tmpdir" />
+
+  <!-- Default cache template -->
+  <defaultCache
+    maxElementsInMemory="10000"
+    eternal="false"
+    memoryStoreEvictionPolicy="LRU"
+    timeToIdleSeconds="120"
+    timeToLiveSeconds="120"
+    overflowToDisk="false"/>
+
+  <cache
+    name="getExchangeInfo"
+    maxElementsInMemory="20000"
+    overflowToDisk="true"
+    eternal="false"
+    memoryStoreEvictionPolicy="LRU"
+    timeToIdleSeconds="60"
+    timeToLiveSeconds="120"/>
+
+</ehcache>
+
