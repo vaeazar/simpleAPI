@@ -36,6 +36,9 @@ public class MainController {
   @ResponseBody
   public ResponseEntity finalPrice(@PathVariable String country, @PathVariable int price) {
 
+    if (price < 1 || price > 100000) {
+      return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
     Exchange getJson = exchangeService.getExchangeInfo("exchange");
     Map<String, Object> data = exchangeService.finalPrice(getJson, country, price);
 

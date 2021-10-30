@@ -1,17 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // let xhr = new XMLHttpRequest();
-  // xhr.open('GET', '/exchange/USDKRW', true);
-  // xhr.send();
-  // xhr.onload = () => {
-  //   if (xhr.status == 200) {
-  //     document.querySelector('#exchange-rate').textContent = xhr.response + ' USD/KRW';
-  //   } else {
-  //     alert("통신 실패 재 요청 해주세요");
-  //   }
-  // }
-});
-
-let jsonTemp = '';
 function countryChange() {
   let xhr = new XMLHttpRequest();
   let country = document.querySelector('#receipt-country').value;
@@ -38,13 +24,15 @@ function finalPrice() {
   xhr.open('GET', '/finalPrice/USD' + country + '/' + price, true);
   xhr.send();
   xhr.onload = () => {
-    if (xhr.status == 200) {
-      jsonTemp = JSON.parse(xhr.response);
+    if (xhr.status === 200) {
+      let jsonTemp = JSON.parse(xhr.response);
       document.querySelector('#receipt-complete').style.display = 'block';
       let finalPrice = commaSep(jsonTemp.finalPrice);
       let exchange = commaSep(jsonTemp.exchange);
       document.querySelector('#exchange-rate').textContent = exchange + ' ' + country + '/USD';
       document.querySelector('#final-price').textContent = finalPrice + ' ' + country;
+    } else if (xhr.status === 400) {
+      alert("잘못 된 요청입니다. 다시 요청해주세요.");
     } else {
       alert("통신 실패 재 요청 해주세요");
     }

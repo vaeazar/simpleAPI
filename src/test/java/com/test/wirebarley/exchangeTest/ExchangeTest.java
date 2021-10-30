@@ -40,9 +40,24 @@ class ExchangeTest {
 
   @Test
   @DisplayName("Exchange API working test")
-  void T1() {
+  void TestExchange() {
     try {
       result = mvc.perform(get("/exchange/USDKRW"))
+          .andExpect(status().isOk())
+          .andReturn();
+      String data = result.getResponse().getContentAsString();
+      log.info("API result ::: {}", data);
+      assertThat(data).isNotBlank();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  @DisplayName("FinalPrice API working test")
+  void TestFinalPrice() {
+    try {
+      result = mvc.perform(get("/finalPrice/USDKRW/100"))
           .andExpect(status().isOk())
           .andReturn();
       String data = result.getResponse().getContentAsString();
